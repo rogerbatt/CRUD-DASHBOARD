@@ -9,7 +9,7 @@ function CreateForm(props) {
   const [cpff, setCnpj] = useState('');
 
   const [message, setMessage] = useState('');
-  const [teste, setTeste] = useState('');
+  const [notificação, setNotificação] = useState('');
 
 function onCreatePost(e) {
   e.preventDefault();
@@ -26,14 +26,17 @@ function onCreatePost(e) {
       postData,
     )
     .then(() => {
-      setMessage('Usuário criado!');
-      setTeste('bg-green-100 text-green-400 text-center rounded-lg p-2 animate-bounce')      
+      setMessage('Usuário criado!')
+      setNotificação('bg-green-200 text-green-900 text-center rounded-lg p-2 animate-bounce')
+      setTimeout(() => {
+        setNotificação('invisible')
+      }, 3000);
     }).catch((error) => {
       setMessage(error);
     });
 }
   return (
-    <div className="bg-gray-100 px-10 py-10">
+    <div className="px-10 py-10">
       <form className="bg-black px-10 py-7 rounded-2xl" onSubmit={onCreatePost}>
         <input value={nomie} onChange={(e) => setNomie(e.target.value)} className="font-bold placeholder:text-black placeholder:font-bold bg-white w-full border rounded-full py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-green-500 focus:ring-green-500 focus:ring-1 sm:text-sm" placeholder="Nome" type="text"/>
 
@@ -54,7 +57,7 @@ function onCreatePost(e) {
           <button type="submit" className="justify-self-end mt-3 bg-green-300 py-2 px-5 rounded-full font-bold">Criar</button>
         </div>
         </form>
-        <h1 className={teste} onClick={()=>setTeste('invisible')}>{message} </h1>
+        <h1 className={notificação}>{message} </h1>
     </div>
   );
 }
